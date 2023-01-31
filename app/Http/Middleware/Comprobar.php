@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class Comprobar
 {
@@ -16,9 +17,9 @@ class Comprobar
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!auth()->check()) {
+        if (!Auth::guard('api')->check()) {
             return response()->json([
-                'fallo' => 'No esta logeado correctamente'
+                'fallo' => 'No estas authorizado'
             ],401);
         }
         return $next($request);
