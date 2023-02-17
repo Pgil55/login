@@ -19,7 +19,7 @@ class Comprobar
     {
         if (!Auth::guard('api')->check()) {
             return response()->json([
-                'fallo' => 'No estas authorizado'
+                'error' => 'No estas authorizado'
             ],401);
         }
         return $next($request);

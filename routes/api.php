@@ -15,11 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('register', [loginController::class, 'register']);
 Route::post('/login', [loginController::class, 'login']);
-Route::post('/logout', [loginController::class, 'logout'])->middleware('comprobar');
-Route::get('/whoiam', [loginController::class, 'whoIam'])->middleware('comprobar');
-Route::get('/all', [loginController::class, 'mostrar'])->middleware('comprobar');
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['middleware' => 'comprobar'], function () {
+Route::post('/logout', [loginController::class, 'logout']);
+Route::get('/whoiam', [loginController::class, 'whoIam']);
+Route::get('/all', [loginController::class, 'mostrar']);
 });
+
